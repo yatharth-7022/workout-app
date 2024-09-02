@@ -1,23 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import NavBar from "./landing page components/navbar";
+import Slideshow from "./landing page components/slideshow";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="parent-container">
+        <NavBar />
+        <Slideshow />
+        <div className="add-button-container">
+          <button id="add-button">+ NEW</button>
+        </div>
+      </div>
     </div>
   );
 }

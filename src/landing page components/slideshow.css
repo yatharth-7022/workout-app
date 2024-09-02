@@ -1,0 +1,38 @@
+* {
+  box-sizing: border-box;
+}
+
+.slideshow-container {
+  max-width: 1000px; /* Set a maximum width */
+  position: relative;
+  margin: auto; /* Center the slideshow */
+  overflow: hidden; /* Hide overflow */
+}
+
+.mySlides {
+  display: none; /* Hide all slides by default */
+  height: 500px; /* Set the desired height for all slides */
+}
+
+.mySlides.active {
+  display: block; /* Show the current slide */
+}
+
+img {
+  width: 100%; /* Make images responsive */
+  height: 100%; /* Ensure images fill the slide height */
+  object-fit: contain; /* Maintain aspect ratio and fit within the slide */
+}
+
+.fade {
+  animation: fade 1.5s; /* Fade animation */
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}

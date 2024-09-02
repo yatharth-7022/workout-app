@@ -1,18 +1,22 @@
 import "./App.css";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import NavBar from "./landing page components/navbar";
 import Slideshow from "./landing page components/slideshow";
-
+import Exercises from "./components/Exercises";
+import { Custom } from "./components/Custom";
 function App() {
   return (
-    <div className="App">
-      <div className="parent-container">
-        <NavBar />
-        <Slideshow />
-        <div className="add-button-container">
-          <button id="add-button">+ NEW</button>
+    <Router>
+      <div className="App">
+        <div className="parent-container">
+          <NavBar />
+          <Routes>
+            <Route path="/" element={<Custom />}></Route>
+            <Route path="/exercises" element={<Exercises />}></Route>
+          </Routes>
         </div>
       </div>
-    </div>
+    </Router>
   );
 }
 

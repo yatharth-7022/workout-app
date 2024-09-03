@@ -4,6 +4,7 @@
   height: 15vh;
   margin-bottom: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 9px;
 }
 .img-container img {
   height: 60px;

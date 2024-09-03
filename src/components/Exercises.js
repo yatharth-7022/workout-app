@@ -10,9 +10,11 @@ const Exercises = () => {
         {Data.map((item, index) => {
           return (
             <ExercisexCard
+              key={index}
               name={item.exerciseName}
               bodypart={item.bodyPart}
-              image={item.Image}
+              logo_image={item.logoImage}
+              ex_image={item.exerciseImage}
             />
           );
         })}

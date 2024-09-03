@@ -28,6 +28,9 @@ body {
     overflow: scroll;
   }
 }
+.pop-up-link {
+  text-decoration: none;
+}
 
 .h1 {
   color: black;

@@ -1,18 +1,32 @@
+// ExercisexCard.js
+
 import React from "react";
 import "./components_css/exercise-card.css";
+import { useState } from "react";
+import Pop_Up from "./pop-up";
 
-export const ExercisexCard = ({ name, bodypart, image }) => {
+export const ExercisexCard = ({ name, bodypart, logo_image }) => {
+  const [isPopUpVisible, setIsPopUpVisible] = useState(false);
+
+  function handlePopCard() {
+    setIsPopUpVisible(!isPopUpVisible);
+  }
+
   return (
-    <div className="card-container">
-      <div className="img-container">
-        <img src={image} alt="no image" />
-      </div>
-      <div className="card-details">
-        <div>
-          <h2>{name}</h2>
+    <div>
+      {isPopUpVisible ? <Pop_Up handlePopCard={handlePopCard} /> : ""}
+
+      <div onClick={handlePopCard} className="card-container">
+        <div className="img-container">
+          <img src={logo_image} alt="no image" />
         </div>
-        <div>
-          <p>{bodypart}</p>
+        <div className="card-details">
+          <div>
+            <h2>{name}</h2>
+          </div>
+          <div>
+            <p>{bodypart}</p>
+          </div>
         </div>
       </div>
     </div>

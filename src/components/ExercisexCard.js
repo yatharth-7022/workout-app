@@ -1,5 +1,3 @@
-// ExercisexCard.js
-
 import React from "react";
 import "./components_css/exercise-card.css";
 import { useState } from "react";
@@ -14,10 +12,6 @@ export const ExercisexCard = ({
 }) => {
   const [isPopUpVisible, setIsPopUpVisible] = useState(false);
   const [selectedExercise, setSelectedExercise] = useState({});
-  const lodacontainer = {
-    marginTop: "100px",
-    backgroundColor: "green",
-  };
 
   function handlePopCard() {
     setIsPopUpVisible(!isPopUpVisible);
@@ -28,7 +22,6 @@ export const ExercisexCard = ({
     <div>
       {isPopUpVisible ? (
         <Pop_Up
-          lodacontainer={lodacontainer}
           handlePopCard={handlePopCard}
           exerciseName={selectedExercise.name}
           exerciseImage={selectedExercise.ex_image}

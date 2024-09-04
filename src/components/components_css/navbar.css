@@ -29,12 +29,10 @@
   color: white;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s, transform 0.3s;
-
-  /* Centering text and icon */
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  gap: 15px; /* Space between text and icon */
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
 }
 
 .navbar-button:hover {

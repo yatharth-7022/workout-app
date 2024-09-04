@@ -2,8 +2,9 @@ html,
 body {
   height: 100%;
   margin: 0;
-  font-family: "SUSE", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
+
 .App {
   height: 100%;
   width: 100%;
@@ -19,6 +20,15 @@ body {
   margin: 0;
   position: relative;
   overflow: scroll;
+}
+
+.parent-container::-webkit-scrollbar {
+  display: none;
+}
+
+.parent-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 @media screen and (max-width: 660px) {

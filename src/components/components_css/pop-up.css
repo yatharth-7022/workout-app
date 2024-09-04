@@ -21,6 +21,15 @@
   transform: translateY(100%);
   transition: transform 1s cubic-bezier(0.25, 0.1, 0.25, 1);
   padding: 20px;
+  overflow: scroll;
+}
+.pop-up-content::-webkit-scrollbar {
+  display: none;
+}
+
+.pop-up-content {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .pop-up-overlay .pop-up-content {

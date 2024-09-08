@@ -11,16 +11,12 @@
 
 .header2-container {
   width: 100%;
-  height: 15vh;
+  height: 10vh;
   background-color: #0b2f9f;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-}
-
-.parent-container {
-  height: 100vh;
 }
 
 .arrow-button-container {
@@ -59,4 +55,147 @@
 h1 {
   color: white;
   margin: 0;
+}
+
+.new-training-overlay {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+.add-exercise-but {
+  height: 10vh;
+  width: 100%;
+  background-color: #d3d3d3;
+  border-radius: 20px;
+  border: 1px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  font-weight: 700;
+  width: 90%;
+}
+.add-exercise-button-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.add-exercise-but:hover {
+  transform: scale(1.1);
+}
+
+.button-text-icon-div {
+  height: 100%;
+  width: 100%;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.added-exercises-container {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 40px 40px 0 0;
+  gap: 20px;
+}
+.added-exercises-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+  width: 100%;
+  padding: 20px;
+  border-radius: 20px 20px 0 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.added-exercise-img-container {
+  background-color: #eeedeb;
+  margin-left: 30px;
+  height: fit-content;
+  border-radius: 20px;
+}
+.img-content-container {
+  display: flex;
+  gap: 20px;
+}
+.kg-and-reps-input-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+  background-color: #d3d3d3;
+  height: 2.5rem;
+  align-items: center;
+  border-radius: 10px;
+  font-weight: 600;
+}
+.kg-and-reps-input-container input {
+  height: 80%;
+  border-radius: 10px;
+  border: none;
+  width: 15%;
+  padding: 5px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.add-set-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  background-color: #d3d3d3;
+  height: 2.5rem;
+  border-radius: 10px;
+}
+.add-set-button button {
+  width: 100%;
+  border-radius: 10px;
+  border: none;
+  font-family: "Poppins";
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.save-exercises-button-container {
+  background-color: transparent;
+  padding: 10px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.save-exercises-button-container button {
+  font-family: "Poppins", sans-serif;
+  width: 90%;
+  height: auto;
+  padding: 0.5rem 2rem;
+  border: 0;
+  margin: 0;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 1.5rem;
+  border-radius: 15px;
+  background-color: #0b2f9f;
+  color: white;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+.save-exercises-button-container button:hover {
+  background-color: #161d6f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }

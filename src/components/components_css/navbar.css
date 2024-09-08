@@ -1,8 +1,7 @@
 .navbar {
   display: flex;
   overflow: hidden;
-  background-color: #333;
-  height: 8%;
+  height: 15%;
 }
 
 .navbar ul {
@@ -20,11 +19,11 @@
 .navbar-button {
   width: 100%;
   height: 100%;
-  border: 1px solid white;
+  border-radius: 10px;
   padding: 0.5rem 1rem;
   font-weight: 700;
   font-style: normal;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   background-color: #0b2f9f;
   color: white;
   cursor: pointer;
@@ -33,12 +32,14 @@
   justify-content: center;
   align-items: center;
   gap: 15px;
+  font-family: "Poppins", sans-serif;
+  border: 0px;
 }
 
 .navbar-button:hover {
   background-color: #161d6f;
   color: white;
-  transform: scale(1.1);
+  transform: scale(1.02);
 }
 
 .navbar-link {
@@ -50,6 +51,7 @@
   justify-content: center;
   align-items: center;
   height: 100%;
+  border-width: 0px;
 }
 
 .navbar-button {

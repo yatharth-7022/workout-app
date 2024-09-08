@@ -31,15 +31,11 @@ export const ExercisexCard = ({
       )}
       <div onClick={handlePopCard} className="card-container">
         <div className="img-container">
-          <img src={logo_image} alt="no image" />
+          <img src={ex_image} alt="no image" />
         </div>
         <div className="card-details">
-          <div>
-            <h2>{name}</h2>
-          </div>
-          <div>
-            <p>{bodypart}</p>
-          </div>
+          <h2>{name}</h2>
+          <p>{bodypart}</p>
         </div>
       </div>
     </div>

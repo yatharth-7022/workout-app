@@ -1,24 +1,31 @@
 .card-container {
   display: flex;
   background-color: white;
-  height: 10vh;
+  height: 16vh;
   margin-bottom: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   border-radius: 9px;
+  gap: 30px;
+  align-items: center;
 }
+
 .img-container img {
-  height: 60px;
-  width: 60px;
-  margin: 9px 20px 0px 20px;
+  height: 100%;
+  width: 150px;
+  margin-left: 20px;
 }
+
 .card-details {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  margin-top: 14px;
+  justify-content: center;
+
+  height: 100%;
+  width: fit-content;
   border-radius: 20px;
   font-family: inherit;
 }
+
 h2 {
   margin: 0;
   color: black;
@@ -33,4 +40,6 @@ p {
 header {
   font-size: 1.5rem;
   font-weight: 900;
+}
+.img-container {
 }

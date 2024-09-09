@@ -74,7 +74,7 @@ input[type="checkbox"] {
   width: 20px;
   height: 20px;
   background-color: #fff;
-  border: 1px solid #16325b;
+  border: 1px solid #1a4870;
   border-radius: 10px;
   position: relative;
   cursor: pointer;
@@ -99,7 +99,7 @@ input[type="checkbox"]:checked::before {
   left: 50%;
   transform: translateX(-13%);
   padding: 10px 10px;
-  background-color: #0b2f9f;
+  background-color: #1a4870;
   color: white;
   border: none;
   border-radius: 10px;
@@ -108,4 +108,7 @@ input[type="checkbox"]:checked::before {
   width: 80%;
   font-weight: 700;
   font-family: inherit;
+}
+.add-selected-exercises-button:hover {
+  background-color: #03346e;
 }

@@ -6,6 +6,7 @@ import { Custom } from "./components/Custom";
 import { Pop_Up } from "./components/pop-up";
 import { AddExercise } from "./components/add-exercise";
 import Testing from "./components/Testing";
+import { BeforeStarting } from "./components/before-starting";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
 
             <Route path="/exercises" element={<Exercises />}></Route>
             <Route path="/add-exercise" element={<AddExercise />}></Route>
+            <Route path="/before-starting" element={<BeforeStarting />}></Route>
           </Routes>
         </div>
       </div>

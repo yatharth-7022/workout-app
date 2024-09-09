@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, NavLink } from "react-router-dom";
 import "./components_css/trainingPage.css";
 import Slideshow from "../landing page components/slideshow";
+import "./components_css/before-starting.css";
 
 export const TrainingPage = ({ handleNewButtonClick }) => {
   const [trainingData, setTrainingData] = useState([]);
   const location = useLocation();
+
   useEffect(() => {
     const storedTrainingData = JSON.parse(
       localStorage.getItem("trainingData") || "[]"
@@ -20,42 +22,56 @@ export const TrainingPage = ({ handleNewButtonClick }) => {
       };
       setTrainingData(updatedData);
       localStorage.setItem("trainingData", JSON.stringify(updatedData));
-      const hehe = JSON.parse(localStorage.getItem("trainingData"));
-      console.log(hehe);
+    } else {
+      setTrainingData(storedTrainingData);
     }
   }, [location]);
+
   return (
     <div className="training-container">
       {trainingData.length > 0 ? (
-        trainingData.map((item, index) => (
-          <div className="item-big-container" key={index}>
-            <div className="training-name-container">
-              <h1>{item.name}</h1>
-              <p>{item.exercises ? item.exercises.length : 0} exercises</p>
-            </div>
-            <div className="all-info-container">
-              {item.exercises &&
-                item.exercises.map((exercise, idx) => (
-                  <div className="all-info">
-                    <div className="exercise-img-container">
-                      <img src={exercise.exerciseImage} alt="" />
-                      <div className="exercise-info-container">
-                        <p key={idx}>{exercise.exerciseName}</p>
-                      </div>
-                    </div>
-                    <div className="sets-reps-container">
-                      <p key={idx}>
-                        {exercise.sets}x{exercise.reps}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-            </div>
-          </div>
-        ))
+        <div className="custom-heading-container-exercises">
+          <h1>Custom</h1>{" "}
+        </div>
       ) : (
-        <Slideshow />
+        ""
       )}
+      <div className="all-exercise-card-container">
+        {trainingData.length > 0 ? (
+          trainingData.map((item, index) =>
+            item ? (
+              <NavLink to="/before-starting" className="exercise-card-navlink">
+                <div className="item-big-container" key={index}>
+                  <div className="training-name-container">
+                    <h1>{item.name}</h1>
+                    <p>
+                      {item.exercises ? item.exercises.length : 0} exercises
+                    </p>
+                  </div>
+                  <div className="all-info-container">
+                    {item.exercises &&
+                      item.exercises.map((exercise, idx) => (
+                        <div className="all-info" key={idx}>
+                          <div className="exercise-img-container">
+                            <img src={exercise.exerciseImage} alt="" />
+                            <div className="exercise-info-container">
+                              <p>{exercise.exerciseName}</p>
+                            </div>
+                          </div>
+                          <div className="sets-reps-container">
+                            <p>{exercise.sets} sets</p>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              </NavLink>
+            ) : null
+          )
+        ) : (
+          <Slideshow />
+        )}
+      </div>
       <Link
         style={{
           textDecoration: "none",

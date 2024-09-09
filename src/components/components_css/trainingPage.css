@@ -4,8 +4,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px 0px 30px 0px;
+  padding: 15px 0px 30px 0px;
   width: 100%;
+}
+.exercise-card-navlink {
+  text-decoration: none; /* Removes default underline */
+  color: inherit; /* Inherits the color of the parent or specified style */
+  display: block; /* Ensure that the NavLink behaves like a div */
+  width: 90%;
 }
 
 .new-button {
@@ -19,23 +25,23 @@
   font-style: normal;
   font-size: 1.5rem;
   border-radius: 15px;
-  background-color: #0b2f9f;
+  background-color: #1a4870;
   color: white;
   transition: background-color 0.3s, color 0.3s, transform 0.3s;
 }
 
 .new-button:hover {
-  background-color: #161d6f;
+  background-color: #03346e;
   color: white;
   transform: scale(1.01);
 }
 .item-big-container {
-  width: 90%;
+  width: 100%;
   height: fit-content;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-top: 20px;
+
   background-color: white;
   padding: 20px;
   border-radius: 15px;
@@ -77,4 +83,24 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+.custom-heading-container-exercises {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 65px;
+}
+.custom-heading-container-exercises h1 {
+  color: black;
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+.all-exercise-card-container {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }

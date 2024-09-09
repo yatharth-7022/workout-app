@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import ".././components/components_css/add-exercise.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Custom } from "./Custom";
 import { useNavigate } from "react-router-dom";
 import { InputPopUp } from "./input-popup";
@@ -15,9 +15,12 @@ export const AddExercise = () => {
   const [selectedIndices, setSelectedIndices] = useState([]);
   const [selectedExercises, setSelectedExercises] = useState([]);
   const [addingASet, setAddingASet] = useState({});
+  const [addExerciseWarningPopup, setAddExerciseWarningPopup] = useState(false);
   const location = useLocation();
   const Navigate = useNavigate();
-
+  function handleAddExerciseWarningPopup() {
+    setAddExerciseWarningPopup(!addExerciseWarningPopup);
+  }
   const dayIndex = location.state ? location.state.dayIndex : 0;
   function handleBackButtonClick() {
     Navigate("/");
@@ -53,10 +56,9 @@ export const AddExercise = () => {
   function handleSave() {
     const updatedTraining = {
       name: newTraining,
-      exercises: selectedExercises.map((exercise) => ({
+      exercises: selectedExercises.map((exercise, exIndex) => ({
         ...exercise,
-        sets: addingASet[exercise.id] ? addingASet[exercise.id].length : 0,
-        reps: addingASet[exercise.id] ? addingASet[exercise.id].length : 0,
+        sets: addingASet[exIndex] ? addingASet[exIndex].length : 0,
       })),
     };
     const storedTrainingData = JSON.parse(
@@ -64,11 +66,13 @@ export const AddExercise = () => {
     );
     storedTrainingData[dayIndex] = updatedTraining;
     localStorage.setItem("trainingData", JSON.stringify(storedTrainingData));
-    Navigate("/", {
-      state: {
-        updatedTraining: { dayIndex, exercises: updatedTraining.exercises },
-      },
-    });
+    if (updatedTraining.exercises.length > 0) {
+      Navigate("/", {
+        state: {
+          updatedTraining: { dayIndex, exercises: updatedTraining.exercises },
+        },
+      });
+    } else handleAddExerciseWarningPopup();
   }
   return (
     <>
@@ -77,6 +81,25 @@ export const AddExercise = () => {
           handleInputBox={handleInputBox}
           handleNewTraining={setNewTraining}
         />
+      ) : (
+        ""
+      )}
+      {addExerciseWarningPopup ? (
+        <div className="warning-popup-overlay">
+          <div
+            className="warning-popup-content show"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <div className="warning">
+              <h1>Add exercise(min 1)</h1>
+            </div>
+            <div className="okay-container">
+              <button onClick={handleAddExerciseWarningPopup}>Okay</button>
+            </div>
+          </div>
+        </div>
       ) : (
         ""
       )}

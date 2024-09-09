@@ -29,3 +29,52 @@
   color: white;
   transform: scale(1.01);
 }
+.item-big-container {
+  width: 90%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 15px;
+}
+.training-name-container {
+  width: 100%;
+  height: fit-content;
+}
+.training-name-container h1 {
+  color: black;
+  font-size: 1.6rem;
+}
+.exercise-info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+  width: fit-content;
+}
+.all-info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.sets-reps-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.exercise-img-container {
+  display: flex;
+  gap: 15px;
+}
+.exercise-img-container img {
+  height: auto;
+  width: 70px;
+}
+.all-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./components_css/trainingPage.css";
-import "./components_css/custom.css";
 import Slideshow from "../landing page components/slideshow";
 
 export const TrainingPage = ({ handleNewButtonClick }) => {
@@ -12,8 +11,6 @@ export const TrainingPage = ({ handleNewButtonClick }) => {
       localStorage.getItem("trainingData") || "[]"
     );
     setTrainingData(storedTrainingData);
-
-    // If coming back from AddExercise, update the specific training day
     if (location.state && location.state.updatedTraining) {
       const { dayIndex, exercises } = location.state.updatedTraining;
       const updatedData = [...storedTrainingData];
@@ -23,6 +20,8 @@ export const TrainingPage = ({ handleNewButtonClick }) => {
       };
       setTrainingData(updatedData);
       localStorage.setItem("trainingData", JSON.stringify(updatedData));
+      const hehe = JSON.parse(localStorage.getItem("trainingData"));
+      console.log(hehe);
     }
   }, [location]);
   return (
@@ -34,21 +33,23 @@ export const TrainingPage = ({ handleNewButtonClick }) => {
               <h1>{item.name}</h1>
               <p>{item.exercises ? item.exercises.length : 0} exercises</p>
             </div>
-            <div className="all-info">
-              <div className="exercise-info-container">
-                {item.exercises &&
-                  item.exercises.map((exercise, idx) => (
-                    <p key={idx}>{exercise.exerciseName}</p>
-                  ))}
-              </div>
-              <div className="sets-reps-container">
-                {item.exercises &&
-                  item.exercises.map((exercise, idx) => (
-                    <p key={idx}>
-                      {exercise.sets}x{exercise.reps}
-                    </p>
-                  ))}
-              </div>
+            <div className="all-info-container">
+              {item.exercises &&
+                item.exercises.map((exercise, idx) => (
+                  <div className="all-info">
+                    <div className="exercise-img-container">
+                      <img src={exercise.exerciseImage} alt="" />
+                      <div className="exercise-info-container">
+                        <p key={idx}>{exercise.exerciseName}</p>
+                      </div>
+                    </div>
+                    <div className="sets-reps-container">
+                      <p key={idx}>
+                        {exercise.sets}x{exercise.reps}
+                      </p>
+                    </div>
+                  </div>
+                ))}
             </div>
           </div>
         ))

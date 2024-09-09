@@ -40,6 +40,7 @@ export const AddExercise = () => {
     handleExerciseCardPop();
     const updatedExercises = selectedIndices.map((i) => Data[i]);
     setSelectedExercises(updatedExercises);
+    console.log(updatedExercises);
   }
   function handleAddingASet(exerciseIndex) {
     setAddingASet((prevState) => ({
@@ -55,16 +56,14 @@ export const AddExercise = () => {
       exercises: selectedExercises.map((exercise) => ({
         ...exercise,
         sets: addingASet[exercise.id] ? addingASet[exercise.id].length : 0,
-        reps: addingASet[exercise.id] ? addingASet[exercise.id][0].reps : 0,
+        reps: addingASet[exercise.id] ? addingASet[exercise.id].length : 0,
       })),
     };
-
     const storedTrainingData = JSON.parse(
       localStorage.getItem("trainingData") || "[]"
     );
     storedTrainingData[dayIndex] = updatedTraining;
     localStorage.setItem("trainingData", JSON.stringify(storedTrainingData));
-
     Navigate("/", {
       state: {
         updatedTraining: { dayIndex, exercises: updatedTraining.exercises },

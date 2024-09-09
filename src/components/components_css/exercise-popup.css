@@ -108,5 +108,4 @@ input[type="checkbox"]:checked::before {
   width: 80%;
   font-weight: 700;
   font-family: inherit;
-  font-stretch: wider;
 }

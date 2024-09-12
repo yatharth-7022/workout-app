@@ -5,7 +5,7 @@ const Pop_Up = ({ handlePopCard, exerciseName, exerciseImage }) => {
   return (
     <div className="pop-up-overlay" onClick={handlePopCard}>
       <div className="pop-up-content" onClick={(e) => e.stopPropagation()}>
-        <div className="header-container">
+        <div className="header-container-popup">
           <h1>{exerciseName}</h1>
           <img
             src={exerciseImage}
@@ -19,7 +19,7 @@ const Pop_Up = ({ handlePopCard, exerciseName, exerciseImage }) => {
           <svg
             stroke="currentColor"
             fill="currentColor"
-            stroke-width="0"
+            strokeWidth="0"
             viewBox="0 0 24 24"
             height="1em"
             width="1em"

@@ -7,6 +7,8 @@ import { Pop_Up } from "./components/pop-up";
 import { AddExercise } from "./components/add-exercise";
 import Testing from "./components/Testing";
 import { BeforeStarting } from "./components/before-starting";
+import { TrainingPage } from "./components/trainingPage";
+import { StartedTraining } from "./components/started-training";
 
 function App() {
   return (
@@ -17,10 +19,14 @@ function App() {
             <Route path="/navbar" element={<NavBar />}></Route>
             <Route path="/" element={<Custom />}></Route>
             <Route path="/testing" element={<Testing />}></Route>
-
+            <Route
+              path="/started-training"
+              element={<StartedTraining />}
+            ></Route>
             <Route path="/exercises" element={<Exercises />}></Route>
             <Route path="/add-exercise" element={<AddExercise />}></Route>
             <Route path="/before-starting" element={<BeforeStarting />}></Route>
+            <Route path="/trainingPage" element={<TrainingPage />}></Route>
           </Routes>
         </div>
       </div>

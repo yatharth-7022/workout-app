@@ -22,9 +22,9 @@
 .arrow-button-container {
   position: absolute;
   left: 20px;
-  top: 20px;
+  top: 10px;
   display: flex;
-  height: 100%;
+  height: fit-content;
   align-items: flex-start;
 }
 

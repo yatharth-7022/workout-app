@@ -11,10 +11,18 @@
 }
 .exercise-name-container-before-starting {
   flex-grow: 1;
-  overflow-y: auto;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.exercise-name-container-before-starting::-webkit-scrollbar {
+  display: none;
+}
+.exercise-name-container-before-starting {
+  scrollbar-width: none;
 }
 .exercise-name-card-before-starting {
   padding: 20px;
@@ -24,7 +32,8 @@
   gap: 30px;
 }
 .exercise-info-container-before-starting h2 {
-  font-size: 1rem;
+  font-size: 1.4rem;
+  font-weight: 700;
 }
 .img-container-before-starting {
   height: auto;
@@ -35,6 +44,8 @@
   display: flex;
   justify-content: center;
   height: fit-content;
+
+  margin: 20px 0px 20px 0px;
 }
 .start-button {
   width: 90%;
@@ -51,4 +62,23 @@
 .start-button:hover {
   background-color: #03346e;
   transform: scale(1.01);
+}
+.training-name-content-before-starting {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+.training-name-content-before-starting h1 {
+  font-family: inherit;
+}
+.training-name-container-before-starting {
+  height: 20%;
+}
+.training-name-content-before-starting p {
+  color: white;
+  font-family: inherit;
+  font-weight: 400;
 }

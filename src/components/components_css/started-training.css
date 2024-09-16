@@ -1,7 +1,3 @@
-.exercise-info-container-started-training {
-  display: flex;
-  flex-direction: column;
-}
 .started-training-container {
   display: flex;
   flex-direction: column;
@@ -13,107 +9,132 @@
   width: 100%;
   background-color: #1a4870;
 }
-.exercise-name-container-started-training {
-  flex-grow: 1;
-  overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  -webkit-overflow-scrolling: touch;
-}
-
-.exercise-name-container-started-training::-webkit-scrollbar {
-  display: none;
-}
-.exercise-name-container-started-training {
-  scrollbar-width: none;
-}
-.exercise-name-card-started-training {
-  padding: 20px 0px 20px 0px;
-  background-color: white;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  border-radius: 8px;
-  margin-bottom: 16px;
-  overflow: hidden;
-  transition: all 0.3s ease-in-out;
-}
-.exercise-info-container-started-training h2 {
-  font-size: 1.4rem;
-  font-weight: 700;
-}
-.img-container-started-training {
-  height: 70px;
-  width: 80px;
-  background-color: #d3d3d3;
-  border-radius: 10px;
-}
 
 .training-name-content-started-training {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: 20px;
-  margin-top: 10px;
+  padding: 20px;
 }
+
 .training-name-content-started-training h1 {
   font-family: inherit;
+  color: white;
+  margin-top: 20px;
 }
-.training-name-container-started-training {
-  height: 20%;
-}
+
 .training-name-content-started-training p {
   color: white;
   font-family: inherit;
   font-weight: 400;
+  margin: 5px 0 0 0;
 }
+
+.exercise-name-container-started-training {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 16px;
+  scrollbar-width: none;
+}
+
+.exercise-name-container-started-training::-webkit-scrollbar {
+  display: none;
+}
+
+.exercise-name-card-started-training {
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
 .exercise-sets-name-img {
   display: flex;
   gap: 15px;
-}
-.kg-and-reps-input-container-started-training {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-.kg-and-reps-input-container {
-  width: 90%;
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 10px;
-  background-color: #d3d3d3;
   align-items: center;
-  border-radius: 10px;
-  max-height: 0; /* Collapsed state */
-  overflow: hidden; /* Hide content when collapsed */
-  transition: max-height 0.4s ease-out, opacity 0.4s ease-out;
-  opacity: 0; /* Start with hidden opacity */
+  padding: 20px;
+  background-color: white;
+  position: relative;
+  z-index: 2;
 }
 
-.exercise-name-card-started-training.expanded .kg-and-reps-input-container {
-  max-height: 500px; /* Set a max-height large enough for content */
-  opacity: 1; /* Fade in content */
+.img-container-started-training {
+  height: 70px;
+  width: 80px;
+  background-color: #d3d3d3;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.img-container-started-training img {
+  width: 100%;
+  height: 100%;
+}
+
+.exercise-info-container-started-training {
+  display: flex;
+  flex-direction: column;
+}
+
+.exercise-info-container-started-training h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.exercise-info-container-started-training p {
+  margin: 5px 0 0 0;
+}
+
+.kg-and-reps-input-container-started-training {
+  transition: all 0.3s ease-in-out;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+
+  transform: translateY(-100%);
+  display: flex;
+  justify-content: centre;
+}
+
+.exercise-name-card-started-training.expanded
+  .kg-and-reps-input-container-started-training {
+  max-height: 200px; /* Adjust based on your content */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.kg-and-reps-input-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 20px 20px;
 }
 
 .kg-and-reps-input-container input {
-  height: 80%;
-  border-radius: 10px;
-  border: none;
-  width: 15%;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #d3d3d3;
+  width: 60px;
   padding: 5px;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
   text-align: center;
   box-sizing: border-box;
 }
+
 .drop-down-button {
-  background-color: white;
+  background-color: transparent;
   border: none;
-  color: black;
-  font-weight: 600;
-  font-size: 1rem;
-  width: 10%;
+  color: #1a4870;
+  font-weight: 400;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.exercise-name-card-started-training.expanded .drop-down-button {
+  transform: rotate(180deg);
 }

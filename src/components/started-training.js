@@ -9,7 +9,7 @@ export const StartedTraining = () => {
   const location = useLocation();
   const { exercises, trainingName } = location.state || {};
   {
-    // console.log(exercises, trainingName);
+    console.log(exercises, trainingName);
   }
   const [isOpen, setIsOpen] = useState({});
   const [downArrow, setDownArrow] = useState("˅");
@@ -34,8 +34,8 @@ export const StartedTraining = () => {
               fill="#ffffff"
               strokeWidth="0"
               viewBox="0 0 512 512"
-              height="30px"
-              width="30px"
+              height="25px"
+              width="25px"
             >
               <path d="M401.4 224h-214l83-79.4c11.9-12.5 11.9-32.7 0-45.2s-31.2-12.5-43.2 0L89 233.4c-6 5.8-9 13.7-9 22.4v.4c0 8.7 3 16.6 9 22.4l138.1 134c12 12.5 31.3 12.5 43.2 0 11.9-12.5 11.9-32.7 0-45.2l-83-79.4h214c16.9 0 30.6-14.3 30.6-32 .1-18-13.6-32-30.5-32z"></path>
             </svg>
@@ -55,7 +55,7 @@ export const StartedTraining = () => {
                 className="drop-down-button"
                 onClick={() => toggleDropDown(index)}
               >
-                {downArrow}
+                ▼
               </button>
               <div className="img-container-started-training">
                 <img src={exercise.exerciseImage} alt="img displayed here" />

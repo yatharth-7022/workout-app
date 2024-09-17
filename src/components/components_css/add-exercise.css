@@ -186,6 +186,7 @@ h1 {
   width: 80%;
   font-weight: 700;
   font-family: inherit;
+  margin-bottom: 20px;
 }
 
 .save-exercises-button-container button:hover {

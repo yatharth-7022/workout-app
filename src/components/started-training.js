@@ -4,15 +4,18 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./components_css/started-training.css";
+import { Timer } from "./timer";
 
 export const StartedTraining = () => {
   const location = useLocation();
   const { exercises, trainingName } = location.state || {};
-  {
-    console.log(exercises, trainingName);
-  }
+  // {
+  //   console.log(exercises, trainingName);
+  // }
   const [isOpen, setIsOpen] = useState({});
   const [downArrow, setDownArrow] = useState("˅");
+  const [addingASet, setAddingASet] = useState({});
+  const [selectedIndices, setSelectedIndices] = useState({});
   function toggleDropDown(index) {
     setIsOpen((prevState) => ({
       ...prevState,
@@ -20,15 +23,47 @@ export const StartedTraining = () => {
     }));
     setDownArrow((prevArrow) => (isOpen[index] ? "˅" : "^"));
   }
+  function handleAddingASet(index) {
+    setAddingASet((prevState) => ({
+      ...prevState,
+      [index]: prevState[index]
+        ? [...prevState[index], { weight: "", reps: "", id: Date.now() }]
+        : [{ weight: "", reps: "", id: Date.now() }],
+    }));
+  }
+  function handleSetSelection(index, setID) {
+    setSelectedIndices((prevArray) => ({
+      ...prevArray,
+      [index]: prevArray[index]?.includes(setID)
+        ? prevArray[index].filter((id) => id !== setID)
+        : [...(prevArray[index] || []), setID],
+    }));
+  }
+  function handleSwipe(index, setID, touchStartX, touchEndX) {
+    if (touchEndX - touchStartX > 100) {
+      setAddingASet((prevState) => ({
+        ...prevState,
+        [index]: prevState[index].filter((set) => set.id !== setID),
+      }));
+    }
+  }
   return (
     <div className="started-training-container">
       <div className="training-name-container-started-training">
+        <div className="finish-button-started-training">
+          <button>FINISH</button>
+        </div>
+        <div className="swipe-instruction">
+          <p>*Swipe right to remove set</p>
+        </div>
         <div className="training-name-content-started-training">
           <h1>{trainingName}</h1>
+          {<Timer />}
         </div>
-        <div className="arrow-button-container">
+
+        <div className="arrow-button-container-started-training">
           {/* <NavLink to="/before-starting"> */}
-          <button className="back-button">
+          <button className="back-button-started-training">
             <svg
               style={{ height: "fit-content", margin: "0" }}
               fill="#ffffff"
@@ -62,43 +97,93 @@ export const StartedTraining = () => {
               </div>
               <div className="exercise-info-container-started-training">
                 <h2>{exercise.exerciseName}</h2>
+
                 <p>{exercise.sets} sets</p>
               </div>
             </div>
-            <div className="kg-and-reps-input-container-started-training">
-              <div className="kg-and-reps-input-container">
-                <input
-                  type="number"
-                  placeholder={0}
-                  //   value={item.weight}
-                  //   onChange={(e) => {
-                  //     setAddingASet((prevState) => ({
-                  //       ...prevState,
-                  //       [index]: prevState[index].map((i, set) =>
-                  //         i === setIndex
-                  //           ? { ...set, weight: e.target.value }
-                  //           : set
-                  //       ),
-                  //     }));
-                  //   }}
-                />
-                KG
-                <input
-                  type="number"
-                  placeholder={0}
-                  //   onChange={(e) =>
-                  //     setAddingASet((prevState) => ({
-                  //       ...prevState,
-                  //       [index]: prevState[index].map((i, set) =>
-                  //         i === setIndex
-                  //           ? { ...set, reps: e.target.value }
-                  //           : set
-                  //       ),
-                  //     }))
-                  //   }
-                />
-                REPS
-              </div>
+            {addingASet[index]?.map((item, setID) => {
+              var touchStartX;
+              var touchEndX;
+              return (
+                <div
+                  key={item.id}
+                  className="kg-and-reps-input-container-started-training"
+                >
+                  <div
+                    className={`kg-and-reps-input-content-started-training ${
+                      selectedIndices[index]?.includes(item.id)
+                        ? "selected"
+                        : ""
+                    }`}
+                    onClick={() => handleSetSelection(index, item.id)}
+                    onTouchStart={(e) =>
+                      (touchStartX = e.targetTouches[0].clientX)
+                    }
+                    onTouchMove={(e) =>
+                      (touchEndX = e.targetTouches[0].clientX)
+                    }
+                    onTouchEnd={() =>
+                      handleSwipe(index, item.id, touchStartX, touchEndX)
+                    }
+                  >
+                    <input
+                      className="input-type-checked"
+                      type="checkbox"
+                      checked={selectedIndices[index]?.includes(item.id)}
+                      onChange={() => {}}
+                    />
+                    <input
+                      type="number"
+                      placeholder={0}
+                      value={item.weight}
+                      onChange={(e) => {
+                        setAddingASet((prevState) => ({
+                          ...prevState,
+                          [index]: prevState[index].map((set) =>
+                            set.id === item.id
+                              ? { ...set, weight: e.target.value }
+                              : set
+                          ),
+                        }));
+                      }}
+                      onClick={(e) => e.stopPropagation()}
+                    />
+                    KG
+                    <input
+                      type="number"
+                      placeholder={0}
+                      onChange={(e) =>
+                        setAddingASet((prevState) => ({
+                          ...prevState,
+                          [index]: prevState[index].map((set) =>
+                            set.id === item.id
+                              ? { ...set, reps: e.target.value }
+                              : set
+                          ),
+                        }))
+                      }
+                      onClick={(e) => e.stopPropagation()}
+                    />
+                    REPS
+                  </div>
+                </div>
+              );
+            })}
+
+            <div className="add-set-button-started-training">
+              <button onClick={() => handleAddingASet(index)}>
+                <svg
+                  style={{ margin: 0 }}
+                  fill="currentColor"
+                  strokeWidth="0"
+                  viewBox="0 0 448 512"
+                  height="15px"
+                  width="15px"
+                >
+                  <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"></path>
+                </svg>
+                Add a set
+              </button>
             </div>
           </div>
         ))}

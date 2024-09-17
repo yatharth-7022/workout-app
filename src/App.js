@@ -9,6 +9,7 @@ import Testing from "./components/Testing";
 import { BeforeStarting } from "./components/before-starting";
 import { TrainingPage } from "./components/trainingPage";
 import { StartedTraining } from "./components/started-training";
+import { Timer } from "./components/timer";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/add-exercise" element={<AddExercise />}></Route>
             <Route path="/before-starting" element={<BeforeStarting />}></Route>
             <Route path="/trainingPage" element={<TrainingPage />}></Route>
+            <Route path="/timer" element={<Timer />}></Route>
           </Routes>
         </div>
       </div>

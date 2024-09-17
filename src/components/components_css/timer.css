@@ -1,6 +1,7 @@
 .timer-container {
   font-family: inherit;
   color: whitesmoke;
-  font-size: 1rem;
+  font-size: 1.7rem;
   margin-left: 5px;
+  font-weight: 700;
 }

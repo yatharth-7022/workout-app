@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "./components_css/started-training.css";
 import { Timer } from "./timer";
@@ -16,6 +16,18 @@ export const StartedTraining = () => {
   const [downArrow, setDownArrow] = useState("˅");
   const [addingASet, setAddingASet] = useState({});
   const [selectedIndices, setSelectedIndices] = useState({});
+  // console.log(selectedIndices);
+  useEffect(() => {
+    const initialSets = {};
+    exercises.forEach((exercise, index) => {
+      initialSets[index] = Array.from({ length: exercise.sets }, () => ({
+        weight: "",
+        reps: "",
+        id: Date.now() + Math.random(),
+      }));
+    });
+    setAddingASet(initialSets);
+  }, [exercises]);
   function toggleDropDown(index) {
     setIsOpen((prevState) => ({
       ...prevState,
@@ -39,6 +51,9 @@ export const StartedTraining = () => {
         : [...(prevArray[index] || []), setID],
     }));
   }
+  // useEffect(() => {
+  //   console.log("changed selected indices", selectedIndices);
+  // }, [selectedIndices]);
   function handleSwipe(index, setID, touchStartX, touchEndX) {
     if (touchEndX - touchStartX > 100) {
       setAddingASet((prevState) => ({
@@ -47,6 +62,7 @@ export const StartedTraining = () => {
       }));
     }
   }
+
   return (
     <div className="started-training-container">
       <div className="training-name-container-started-training">
@@ -98,7 +114,9 @@ export const StartedTraining = () => {
               <div className="exercise-info-container-started-training">
                 <h2>{exercise.exerciseName}</h2>
 
-                <p>{exercise.sets} sets</p>
+                <p>{`${
+                  selectedIndices[index] ? selectedIndices[index].length : "0"
+                }/${addingASet[index]?.length}`}</p>
               </div>
             </div>
             {addingASet[index]?.map((item, setID) => {
@@ -169,7 +187,6 @@ export const StartedTraining = () => {
                 </div>
               );
             })}
-
             <div className="add-set-button-started-training">
               <button onClick={() => handleAddingASet(index)}>
                 <svg
@@ -187,6 +204,21 @@ export const StartedTraining = () => {
             </div>
           </div>
         ))}
+        <div className="add-exercise-button-container-started-training">
+          <button>
+            <svg
+              style={{ margin: 0 }}
+              fill="currentColor"
+              strokeWidth="0"
+              viewBox="0 0 448 512"
+              height="20px"
+              width="20px"
+            >
+              <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"></path>
+            </svg>
+            Add Exercises
+          </button>
+        </div>
       </div>
     </div>
   );

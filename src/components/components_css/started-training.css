@@ -72,15 +72,24 @@
   padding: 20px;
   background-color: white;
   position: relative;
-  z-index: 2;
 }
 
 .img-container-started-training {
   height: 70px;
   width: 80px;
-  background-color: #d3d3d3;
+  background-color: #f5f5f5;
   border-radius: 10px;
   overflow: hidden;
+  position: relative;
+}
+.question-mark-container {
+  position: absolute;
+  top: 55px;
+  right: 4px;
+  display: block;
+  color: black;
+  font-size: 0.7rem;
+  font-weight: 400;
 }
 
 .img-container-started-training img {
@@ -101,6 +110,7 @@
 
 .exercise-info-container-started-training p {
   margin: 5px 0 0 0;
+  font-size: 0.8rem;
 }
 
 .kg-and-reps-input-container-started-training {
@@ -163,7 +173,6 @@
   padding: 35px 0px 35px 0px;
   cursor: pointer;
   position: relative;
-  z-index: 1;
 }
 .kg-and-reps-input-content-started-training.selected {
   background-color: #00712d;
@@ -181,6 +190,7 @@
   text-align: center;
   box-sizing: border-box;
   font-size: 1rem;
+  font-weight: 700;
 }
 
 .add-set-button-started-training button {
@@ -238,6 +248,7 @@ input[type="checkbox"]:checked::before {
   line-height: 1;
   position: absolute;
 }
+
 .finish-button-started-training {
   width: 100%;
   position: absolute;

@@ -36,9 +36,15 @@
 .exercise-popup-overlay .exercise-popup-content {
   transform: translateY(0);
 }
+.exercise-popup-card-image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .exercise-popup-card-image-container img {
-  height: 150px;
-  width: 150px;
+  height: 6rem;
+  width: 6rem;
 }
 .exercise-popup-card {
   width: 100%;
@@ -112,4 +118,26 @@
 }
 .add-selected-exercises-button:hover {
   background-color: #03346e;
+}
+@keyframes jiggle {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.jiggle {
+  animation: jiggle 0.3s ease-in-out;
+  background-color: #ee4e4e;
 }

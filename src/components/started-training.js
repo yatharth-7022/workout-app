@@ -5,29 +5,58 @@ import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "./components_css/started-training.css";
 import { Timer } from "./timer";
+import { ExercisePopUp } from "./exercise-popup";
+import { Data } from "../data";
+import Pop_Up from "./pop-up";
 
 export const StartedTraining = () => {
   const location = useLocation();
   const { exercises, trainingName } = location.state || {};
-  // {
-  //   console.log(exercises, trainingName);
-  // }
   const [isOpen, setIsOpen] = useState({});
   const [downArrow, setDownArrow] = useState("˅");
   const [addingASet, setAddingASet] = useState({});
   const [selectedIndices, setSelectedIndices] = useState({});
+  const [exercisePopUp, setExercisePopUp] = useState(false);
+  const [selectedExercises, setSelectedExercises] = useState([]);
+  const [selectedIndicesForExercises, setSelectedIndicesForExercises] =
+    useState([]);
+  const [finalExercises, setFinalExercises] = useState([]);
+  const [jiggleInputs, setJiggleInputs] = useState({});
+  const [popUpVisibility, setPopUpVisibility] = useState({});
   // console.log(selectedIndices);
+
   useEffect(() => {
+    const storedAddingASet = JSON.parse(localStorage.getItem("setData")) || {};
     const initialSets = {};
-    exercises.forEach((exercise, index) => {
-      initialSets[index] = Array.from({ length: exercise.sets }, () => ({
-        weight: "",
-        reps: "",
-        id: Date.now() + Math.random(),
-      }));
+    finalExercises.forEach((exercise, index) => {
+      initialSets[index] = Array.isArray(storedAddingASet[index])
+        ? storedAddingASet[index]
+        : Array.from({ length: exercise.sets }, () => ({
+            weight: "",
+            reps: "",
+            id: Date.now() + Math.random(),
+          }));
     });
+    console.log(finalExercises);
     setAddingASet(initialSets);
+    // console.log("Initial addingASet:", initialSets);
+  }, [finalExercises]);
+  useEffect(() => {
+    const initialArray1 = [...exercises];
+    const storedExercises =
+      JSON.parse(localStorage.getItem("storedExercises")) || [];
+    setSelectedExercises(storedExercises);
+    setFinalExercises([...initialArray1, ...storedExercises]);
   }, [exercises]);
+
+  useEffect(() => {
+    const storedIndices =
+      JSON.parse(localStorage.getItem("completedExercises")) || [];
+    if (storedIndices) {
+      setSelectedIndices(storedIndices);
+    }
+  }, []);
+
   function toggleDropDown(index) {
     setIsOpen((prevState) => ({
       ...prevState,
@@ -36,33 +65,102 @@ export const StartedTraining = () => {
     setDownArrow((prevArrow) => (isOpen[index] ? "˅" : "^"));
   }
   function handleAddingASet(index) {
-    setAddingASet((prevState) => ({
-      ...prevState,
-      [index]: prevState[index]
-        ? [...prevState[index], { weight: "", reps: "", id: Date.now() }]
-        : [{ weight: "", reps: "", id: Date.now() }],
-    }));
+    setAddingASet((prevState) => {
+      const updatedState = {
+        ...prevState,
+        [index]: Array.isArray(prevState[index])
+          ? [...prevState[index], { weight: "", reps: "", id: Date.now() }]
+          : [{ weight: "", reps: "", id: Date.now() }],
+      };
+      // console.log("Updated addingASet after adding:", updatedState);
+      return updatedState;
+    });
   }
-  function handleSetSelection(index, setID) {
-    setSelectedIndices((prevArray) => ({
-      ...prevArray,
-      [index]: prevArray[index]?.includes(setID)
-        ? prevArray[index].filter((id) => id !== setID)
-        : [...(prevArray[index] || []), setID],
-    }));
+
+  function handleSetChange(index, setID, field, value) {
+    setAddingASet((prevState) => {
+      // console.log("Previous state for index", index, ":", prevState[index]);
+      const currentSets = Array.isArray(prevState[index])
+        ? prevState[index]
+        : [];
+      const updatedSets = currentSets.map((set) =>
+        set.id === setID ? { ...set, [field]: value } : set
+      );
+      const updatedState = {
+        ...prevState,
+        [index]: updatedSets,
+      };
+      // console.log("Updated state for index", index, ":", updatedState[index]);
+      localStorage.setItem("setData", JSON.stringify(updatedState));
+      return updatedState;
+    });
   }
   // useEffect(() => {
-  //   console.log("changed selected indices", selectedIndices);
-  // }, [selectedIndices]);
+  //   const hehe = JSON.parse(localStorage.getItem("setData")) || [];
+  //   setAddingASet(hehe);
+  // }, []);
+  function handleSetSelection(index, setID) {
+    const currentSet = addingASet[index].find((set) => set.id === setID);
+    if (currentSet.weight === "" || currentSet.reps === "") {
+      setJiggleInputs((prev) => ({ ...prev, [setID]: true }));
+      setTimeout(
+        () => setJiggleInputs((prev) => ({ ...prev, [setID]: false })),
+        300
+      );
+    } else {
+      setSelectedIndices((prevArray) => {
+        const newSelectedIndices = {
+          ...prevArray,
+          [index]: prevArray[index]?.includes(setID)
+            ? prevArray[index].filter((id) => id !== setID)
+            : [...(prevArray[index] || []), setID],
+        };
+
+        const dataToStore = JSON.stringify(newSelectedIndices);
+        // console.log(dataToStore);
+        localStorage.setItem("completedExercises", dataToStore);
+        // console.log(dataToStore);
+        return newSelectedIndices;
+      });
+    }
+  }
+
   function handleSwipe(index, setID, touchStartX, touchEndX) {
     if (touchEndX - touchStartX > 100) {
-      setAddingASet((prevState) => ({
+      const afterRemoval = setAddingASet((prevState) => ({
         ...prevState,
         [index]: prevState[index].filter((set) => set.id !== setID),
       }));
     }
   }
+  function handleExerciseCardPop() {
+    setExercisePopUp(!exercisePopUp);
+  }
+  function handleCheckBoxClick(index) {
+    setSelectedIndicesForExercises((prevArray) =>
+      prevArray.includes(index)
+        ? prevArray.filter((i) => i !== index)
+        : [...prevArray, index]
+    );
+  }
+  function handleAdditionOfExercises() {
+    handleExerciseCardPop();
+    const newExercises = selectedIndicesForExercises.map((i) => Data[i]);
+    const updatedExercises = [...selectedExercises, ...newExercises];
+    setSelectedExercises(updatedExercises);
+    localStorage.setItem("storedExercises", JSON.stringify(updatedExercises));
+    setFinalExercises((prevExercises) => [...prevExercises, ...newExercises]);
+    setSelectedIndicesForExercises([]);
+  }
+  // console.log("we are selected exercises", selectedExercises);
 
+  // console.log(finalExercises);
+  function handlePopCard(index) {
+    setPopUpVisibility((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  }
   return (
     <div className="started-training-container">
       <div className="training-name-container-started-training">
@@ -95,7 +193,7 @@ export const StartedTraining = () => {
         </div>
       </div>
       <div className="exercise-name-container-started-training">
-        {exercises.map((exercise, index) => (
+        {finalExercises.map((exercise, index) => (
           <div
             className={`exercise-name-card-started-training ${
               isOpen[index] ? "expanded" : ""
@@ -109,14 +207,26 @@ export const StartedTraining = () => {
                 ▼
               </button>
               <div className="img-container-started-training">
-                <img src={exercise.exerciseImage} alt="img displayed here" />
+                {popUpVisibility[index] ? (
+                  <Pop_Up
+                    handlePopCard={() => handlePopCard(index)}
+                    exerciseName={exercise.exerciseName}
+                    exerciseImage={exercise.exerciseImage}
+                  />
+                ) : null}
+                <img
+                  onClick={() => handlePopCard(index)}
+                  src={exercise.exerciseImage}
+                  alt="img displayed here"
+                />
+                <div className="question-mark-container">?</div>
               </div>
               <div className="exercise-info-container-started-training">
                 <h2>{exercise.exerciseName}</h2>
 
                 <p>{`${
                   selectedIndices[index] ? selectedIndices[index].length : "0"
-                }/${addingASet[index]?.length}`}</p>
+                }/${addingASet[index] ? addingASet[index].length : "0"}`}</p>
               </div>
             </div>
             {addingASet[index]?.map((item, setID) => {
@@ -129,7 +239,9 @@ export const StartedTraining = () => {
                 >
                   <div
                     className={`kg-and-reps-input-content-started-training ${
-                      selectedIndices[index]?.includes(item.id)
+                      selectedIndices[index]?.includes(item.id) &&
+                      item.weight > 0 &&
+                      item.reps > 0
                         ? "selected"
                         : ""
                     }`}
@@ -147,38 +259,37 @@ export const StartedTraining = () => {
                     <input
                       className="input-type-checked"
                       type="checkbox"
-                      checked={selectedIndices[index]?.includes(item.id)}
+                      checked={
+                        selectedIndices[index]?.includes(item.id) &&
+                        item.weight > 0 &&
+                        item.reps > 0
+                      }
                       onChange={() => {}}
                     />
                     <input
                       type="number"
                       placeholder={0}
                       value={item.weight}
-                      onChange={(e) => {
-                        setAddingASet((prevState) => ({
-                          ...prevState,
-                          [index]: prevState[index].map((set) =>
-                            set.id === item.id
-                              ? { ...set, weight: e.target.value }
-                              : set
-                          ),
-                        }));
-                      }}
+                      className={jiggleInputs[item.id] ? "jiggle" : ""}
+                      onChange={(e) =>
+                        handleSetChange(
+                          index,
+                          item.id,
+                          "weight",
+                          e.target.value
+                        )
+                      }
                       onClick={(e) => e.stopPropagation()}
                     />
+                    {/* {console.log(addingASet)} */}
                     KG
                     <input
                       type="number"
                       placeholder={0}
+                      value={item.reps}
+                      className={jiggleInputs[item.id] ? "jiggle" : ""}
                       onChange={(e) =>
-                        setAddingASet((prevState) => ({
-                          ...prevState,
-                          [index]: prevState[index].map((set) =>
-                            set.id === item.id
-                              ? { ...set, reps: e.target.value }
-                              : set
-                          ),
-                        }))
+                        handleSetChange(index, item.id, "reps", e.target.value)
                       }
                       onClick={(e) => e.stopPropagation()}
                     />
@@ -205,7 +316,7 @@ export const StartedTraining = () => {
           </div>
         ))}
         <div className="add-exercise-button-container-started-training">
-          <button>
+          <button onClick={handleExerciseCardPop}>
             <svg
               style={{ margin: 0 }}
               fill="currentColor"
@@ -219,6 +330,48 @@ export const StartedTraining = () => {
             Add Exercises
           </button>
         </div>
+        {exercisePopUp ? (
+          <div
+            className="exercise-popup-overlay"
+            onClick={handleExerciseCardPop}
+          >
+            <div
+              className="exercise-popup-content"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              {Data.map((item, index) => {
+                return (
+                  <ExercisePopUp
+                    key={index}
+                    name={item.exerciseName}
+                    bodypart={item.bodyPart}
+                    logo_image={item.logoImage}
+                    ex_image={item.exerciseImage}
+                    isPopupCardClicked={selectedIndicesForExercises.includes(
+                      index
+                    )}
+                    myfunc={() => handleCheckBoxClick(index)}
+                  />
+                );
+              })}
+
+              {selectedIndicesForExercises.length > 0 ? (
+                <button
+                  onClick={handleAdditionOfExercises}
+                  className="add-selected-exercises-button"
+                >
+                  ADD {selectedIndicesForExercises.length} EXERCISES
+                </button>
+              ) : (
+                ""
+              )}
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

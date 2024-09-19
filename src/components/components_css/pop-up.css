@@ -22,6 +22,7 @@
   transition: transform 1s cubic-bezier(0.25, 0.1, 0.25, 1);
   padding: 20px;
   overflow: scroll;
+  z-index: 1000;
 }
 .pop-up-content::-webkit-scrollbar {
   display: none;

@@ -3,13 +3,7 @@ import "./components_css/exercise-card.css";
 import { useState } from "react";
 import Pop_Up from "./pop-up";
 
-export const ExercisexCard = ({
-  name,
-  bodypart,
-  logo_image,
-  uniquekey,
-  ex_image,
-}) => {
+export const ExercisexCard = ({ name, bodypart, ex_image }) => {
   const [isPopUpVisible, setIsPopUpVisible] = useState(false);
   const [selectedExercise, setSelectedExercise] = useState({});
 

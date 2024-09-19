@@ -15,7 +15,6 @@ const Pop_Up = ({ handlePopCard, exerciseName, exerciseImage }) => {
         </div>
         <div className="instructions">
           <h2 style={{ marginTop: "20px" }}>Instructions</h2>
-
           <svg
             stroke="currentColor"
             fill="currentColor"

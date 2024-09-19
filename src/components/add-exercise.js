@@ -43,7 +43,6 @@ export const AddExercise = () => {
     handleExerciseCardPop();
     const updatedExercises = selectedIndices.map((i) => Data[i]);
     setSelectedExercises(updatedExercises);
-    console.log(updatedExercises);
   }
   function handleAddingASet(exerciseIndex) {
     setAddingASet((prevState) => ({

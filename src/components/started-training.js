@@ -26,7 +26,8 @@ export const StartedTraining = () => {
   // console.log(selectedIndices);
 
   useEffect(() => {
-    const storedAddingASet = JSON.parse(localStorage.getItem("setData")) || {};
+    const storedAddingASet =
+      JSON.parse(localStorage.getItem(`setData_${trainingName}`)) || {};
     const initialSets = {};
     finalExercises.forEach((exercise, index) => {
       initialSets[index] = Array.isArray(storedAddingASet[index])
@@ -37,21 +38,22 @@ export const StartedTraining = () => {
             id: Date.now() + Math.random(),
           }));
     });
-    console.log(finalExercises);
+    // console.log(finalExercises);
     setAddingASet(initialSets);
     // console.log("Initial addingASet:", initialSets);
   }, [finalExercises]);
   useEffect(() => {
     const initialArray1 = [...exercises];
     const storedExercises =
-      JSON.parse(localStorage.getItem("storedExercises")) || [];
+      JSON.parse(localStorage.getItem(`storedExercises_${trainingName}`)) || [];
     setSelectedExercises(storedExercises);
     setFinalExercises([...initialArray1, ...storedExercises]);
   }, [exercises]);
 
   useEffect(() => {
     const storedIndices =
-      JSON.parse(localStorage.getItem("completedExercises")) || [];
+      JSON.parse(localStorage.getItem(`completedExercises_${trainingName}`)) ||
+      [];
     if (storedIndices) {
       setSelectedIndices(storedIndices);
     }
@@ -91,7 +93,10 @@ export const StartedTraining = () => {
         [index]: updatedSets,
       };
       // console.log("Updated state for index", index, ":", updatedState[index]);
-      localStorage.setItem("setData", JSON.stringify(updatedState));
+      localStorage.setItem(
+        `setData_${trainingName}`,
+        JSON.stringify(updatedState)
+      );
       return updatedState;
     });
   }
@@ -118,7 +123,7 @@ export const StartedTraining = () => {
 
         const dataToStore = JSON.stringify(newSelectedIndices);
         // console.log(dataToStore);
-        localStorage.setItem("completedExercises", dataToStore);
+        localStorage.setItem(`completedExercises_${trainingName}`, dataToStore);
         // console.log(dataToStore);
         return newSelectedIndices;
       });
@@ -148,7 +153,11 @@ export const StartedTraining = () => {
     const newExercises = selectedIndicesForExercises.map((i) => Data[i]);
     const updatedExercises = [...selectedExercises, ...newExercises];
     setSelectedExercises(updatedExercises);
-    localStorage.setItem("storedExercises", JSON.stringify(updatedExercises));
+    console.log(updatedExercises);
+    localStorage.setItem(
+      `storedExercises_${trainingName}`,
+      JSON.stringify(updatedExercises)
+    );
     setFinalExercises((prevExercises) => [...prevExercises, ...newExercises]);
     setSelectedIndicesForExercises([]);
   }
